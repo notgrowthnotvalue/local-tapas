@@ -1,2 +1,2 @@
 # local-tapas
-Simple LocalStorage example
+Simple LocalStorage and Event Delegation example

@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>LocalStorage</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="./styles.css">
 </head>
 
 <body>
@@ -25,6 +25,34 @@
         const addItems = document.querySelector('.add-items');
         const itemsList = document.querySelector('.plates');
         const items = [];
+
+        // Adds item to items array
+        function addItem(e) {
+            e.preventDefault(); //by default will refresh page, we don't want that.
+            const text = (this.querySelector('[name=item]')).value; // this is the form, we only the text inside.
+            const item = {
+                text: text,
+                done: false
+            }
+            items.push(item);
+            populateList(items, itemsList);
+            this.reset(); // the form value will get blank
+        }
+
+        // Displays the list
+        // Plates is an empty array by default
+        function populateList(plates = [], platesList) {
+            platesList.innerHTML = plates.map((plate, index) => {
+                return `
+                <li>
+                    <input type="checkbox" data-index=${index} id="item${index}" ${plate.done ? 'checked' : ''} />
+                    <label for="item${index}">${plate.text}</label>
+                </li>
+                `;
+            }).join(""); // use join to return string vs an array
+        }
+
+        addItems.addEventListener('submit', addItem);
 
     </script>
 
